@@ -1,0 +1,106 @@
+<UserControl x:Class="OtimizaPC.Views.DuplicadosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:OtimizaPC.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008/design"
+             d:DataContext="{d:DesignInstance vm:DuplicadosViewModel}"
+             mc:Ignorable="d">
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Arquivos duplicados" Style="{StaticResource Titulo}"/>
+            <TextBlock Text="Encontra arquivos idênticos (por conteúdo). Por padrão sugerimos manter o mais antigo e marcar os demais." Style="{StaticResource Subtitulo}"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource Cartao}" Margin="0,0,0,16">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <RadioButton Content="Pasta específica" GroupName="EscopoDuplicados"
+                                 IsChecked="{Binding EscanearPcInteiro, Converter={StaticResource InverterBool}}" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                    <RadioButton Content="Todo o PC (mais demorado)" GroupName="EscopoDuplicados"
+                                 IsChecked="{Binding EscanearPcInteiro}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Text="Vai vasculhar todas as unidades, ignorando pastas do Windows, Program Files e ProgramData para não sinalizar arquivos de sistema (que são iguais de propósito) nem colocar o Windows em risco. Pode demorar bastante dependendo do tamanho do disco."
+                           Style="{StaticResource Subtitulo}" Margin="0,0,0,10"
+                           Visibility="{Binding EscanearPcInteiro, Converter={StaticResource BoolToVis}}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Pasta:" VerticalAlignment="Center" Margin="0,0,8,0"
+                               Visibility="{Binding EscanearPcInteiro, Converter={StaticResource InverterBoolParaVisibilidade}}"/>
+                    <TextBox Text="{Binding PastaSelecionada}" Width="420" VerticalContentAlignment="Center" Padding="6" IsReadOnly="True"
+                             Visibility="{Binding EscanearPcInteiro, Converter={StaticResource InverterBoolParaVisibilidade}}"/>
+                    <Button Content="Escolher..." Style="{StaticResource BotaoSecundario}" Margin="8,0,0,0" Padding="10,6" Command="{Binding EscolherPastaCommand}"
+                            Visibility="{Binding EscanearPcInteiro, Converter={StaticResource InverterBoolParaVisibilidade}}"/>
+                    <Button Content="Procurar duplicados" Style="{StaticResource BotaoPrimario}" Margin="8,0,0,0"
+                            Command="{Binding ProcurarDuplicadosCommand}" IsEnabled="{Binding Escaneando, Converter={StaticResource InverterBool}}"/>
+                    <Button Content="Cancelar" Style="{StaticResource BotaoSecundario}" Padding="10,6" Margin="8,0,0,0"
+                            Command="{Binding CancelarCommand}" Visibility="{Binding Escaneando, Converter={StaticResource BoolToVis}}"/>
+                    <TextBlock Text="{Binding Status}" VerticalAlignment="Center" Margin="16,0,0,0" Foreground="{StaticResource CorTextoSecundario}" TextWrapping="Wrap"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ListBox (com virtualização) em vez de ItemsControl: uma busca "Todo o PC" pode
+             retornar centenas de grupos, e sem virtualização isso trava a interface. -->
+        <ListBox Grid.Row="2" ItemsSource="{Binding Grupos}" Style="{StaticResource ListaVirtualizadaStyle}"
+                  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.CanContentScroll="True">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource Cartao}" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock FontWeight="SemiBold" Margin="0,0,0,8">
+                                <Run Text="Desperdiçando "/>
+                                <Run Text="{Binding EspacoDesperdicado, Mode=OneWay, Converter={StaticResource BytesToString}}"/>
+                                <Run Text=" — "/>
+                                <Run Text="{Binding Arquivos.Count, Mode=OneWay}"/>
+                                <Run Text=" cópias idênticas"/>
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{Binding Arquivos}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Grid.Column="0" IsChecked="{Binding MarcadoParaExclusao}" Margin="0,0,10,0"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding CaminhoCompleto}" TextTrimming="CharacterEllipsis"
+                                                       Foreground="{StaticResource CorTextoSecundario}" FontSize="12"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding DataModificacao, StringFormat=dd/MM/yyyy}" FontSize="12"
+                                                       Foreground="{StaticResource CorTextoSecundario}" Margin="12,0,0,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border Grid.Row="3" Style="{StaticResource Cartao}" Margin="0,16,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Espaço a recuperar (itens marcados)" Style="{StaticResource Subtitulo}" Margin="0"/>
+                    <TextBlock Text="{Binding EspacoDesperdicadoTexto}" FontSize="22" FontWeight="Bold"/>
+                </StackPanel>
+                <Button x:Name="BotaoExcluir" Grid.Column="1" Content="Excluir marcados" Style="{StaticResource BotaoPerigo}"
+                        VerticalAlignment="Center" Click="BotaoExcluir_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

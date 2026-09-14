@@ -1,0 +1,83 @@
+<UserControl x:Class="OtimizaPC.Views.EspacoDiscoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:OtimizaPC.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008/design"
+             d:DataContext="{d:DesignInstance vm:EspacoDiscoViewModel}"
+             mc:Ignorable="d">
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Espaço em disco" Style="{StaticResource Titulo}"/>
+            <TextBlock Text="Escaneie uma unidade uma vez — depois disso, navegar entre pastas é instantâneo, sem recalcular nada a cada clique." Style="{StaticResource Subtitulo}"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource Cartao}" Margin="0,0,0,16">
+            <StackPanel Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding Unidades}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding}" Style="{StaticResource BotaoSecundario}" Padding="12,6" Margin="0,0,8,0"
+                                    Command="{Binding DataContext.EscanearUnidadeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Content="⬆ Subir" Style="{StaticResource BotaoSecundario}" Padding="12,6" Margin="8,0,0,0"
+                        Command="{Binding SubirNivelCommand}" IsEnabled="{Binding ArvoreCarregada}"/>
+                <Button Content="🔄 Reescanear" Style="{StaticResource BotaoSecundario}" Padding="12,6" Margin="8,0,0,0"
+                        Command="{Binding EscanearUnidadeCommand}" CommandParameter="{Binding CaminhoAtual}"
+                        IsEnabled="{Binding ArvoreCarregada}" Visibility="{Binding Escaneando, Converter={StaticResource InverterBoolParaVisibilidade}}"/>
+                <Button Content="Cancelar" Style="{StaticResource BotaoSecundario}" Padding="12,6" Margin="8,0,0,0"
+                        Command="{Binding CancelarCommand}" Visibility="{Binding Escaneando, Converter={StaticResource BoolToVis}}"/>
+                <TextBlock Text="{Binding CaminhoAtual}" VerticalAlignment="Center" Margin="16,0" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding Status}" VerticalAlignment="Center" Foreground="{StaticResource CorTextoSecundario}" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ListBox (não ItemsControl) de propósito: tem virtualização embutida, então
+             abrir uma pasta com milhares de itens não trava a interface desenhando tudo
+             de uma vez — só os itens visíveis na tela são renderizados. -->
+        <ListBox Grid.Row="2" ItemsSource="{Binding Itens}" Style="{StaticResource ListaVirtualizadaStyle}"
+                  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.CanContentScroll="True">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource Cartao}" Margin="0,0,0,8" Padding="12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding EhPasta, Converter={StaticResource PastaParaIcone}}" FontSize="16"/>
+
+                            <TextBlock Grid.Column="1" Text="{Binding Nome}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                       Cursor="Hand" MouseLeftButtonUp="Nome_MouseLeftButtonUp"/>
+
+                            <ProgressBar Grid.Column="2" Value="{Binding PercentualDoPai, Mode=OneWay}" VerticalAlignment="Center" Margin="8,0"/>
+
+                            <TextBlock Grid.Column="3" Text="{Binding TamanhoBytes, Converter={StaticResource BytesToString}}"
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <Button Grid.Column="4" Content="Excluir" Style="{StaticResource BotaoSecundario}" Padding="10,4" FontSize="11" Margin="12,0,0,0"
+                                    Click="BotaoExcluirItem_Click"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

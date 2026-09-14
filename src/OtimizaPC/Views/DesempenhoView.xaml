@@ -1,0 +1,143 @@
+<UserControl x:Class="OtimizaPC.Views.DesempenhoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:OtimizaPC.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008/design"
+             d:DataContext="{d:DesignInstance vm:DesempenhoViewModel}"
+             mc:Ignorable="d">
+    <ScrollViewer Padding="32">
+        <StackPanel MaxWidth="900">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Desempenho" Style="{StaticResource Titulo}"/>
+                    <TextBlock Text="Ajustes que ajudam o PC a entregar o melhor desempenho: menos coisa rodando à toa na inicialização, plano de energia e efeitos visuais." Style="{StaticResource Subtitulo}"/>
+                </StackPanel>
+                <Button Grid.Column="1" Content="Recarregar" Style="{StaticResource BotaoSecundario}" Padding="10,6" VerticalAlignment="Top"
+                        Command="{Binding RecarregarCommand}" IsEnabled="{Binding Sincronizando, Converter={StaticResource InverterBool}}"/>
+            </Grid>
+
+            <TextBlock Text="{Binding Status}" Foreground="{StaticResource CorAcento}" Margin="0,0,0,16" TextWrapping="Wrap"/>
+
+            <Border Style="{StaticResource Cartao}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Plano de energia" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <ComboBox ItemsSource="{Binding PlanosEnergia}" SelectedItem="{Binding PlanoSelecionado}"
+                              DisplayMemberPath="Nome" Width="280" HorizontalAlignment="Left" Padding="8"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Efeitos visuais: melhor desempenho" FontWeight="SemiBold"/>
+                        <TextBlock Text="Desliga animações e sombras do Windows para priorizar velocidade sobre aparência." Style="{StaticResource Subtitulo}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                    <ToggleButton Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding ModoMelhorDesempenho}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Ajustes avançados" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Os mesmos ajustes que aparecem em Propriedades do Sistema, no registro e no powercfg." Style="{StaticResource Subtitulo}"/>
+
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Priorizar o programa em uso" FontWeight="SemiBold"/>
+                            <TextBlock Text="Dá mais fatia de processador pro programa que está na tela, em vez de dividir igual com serviços em segundo plano." Style="{StaticResource Subtitulo}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <ToggleButton Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding PriorizarProgramas}" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Agendamento de GPU por hardware" FontWeight="SemiBold"/>
+                            <TextBlock Text="Reduz a latência gráfica se a placa de vídeo e o driver suportarem. Requer reiniciar o Windows para valer." Style="{StaticResource Subtitulo}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <ToggleButton Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding AgendamentoGpu}" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Hibernação" FontWeight="SemiBold"/>
+                            <TextBlock Text="Desativar libera espaço em disco (o arquivo hiberfil.sys pode ter vários GB), mas remove a Inicialização Rápida e a opção de hibernar." Style="{StaticResource Subtitulo}" Margin="0,4,0,0" Foreground="{StaticResource CorAlerta}"/>
+                        </StackPanel>
+                        <ToggleButton Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding HibernacaoLigada}" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Programas na inicialização" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <ItemsControl ItemsSource="{Binding ItensInicializacao}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Nome}"/>
+                                        <TextBlock Text="{Binding Comando}" FontSize="11" Foreground="{StaticResource CorTextoSecundario}" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding Habilitado, Mode=OneWay}"
+                                              Command="{Binding DataContext.AlternarInicializacaoCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                              CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}">
+                <StackPanel>
+                    <TextBlock Text="Serviços em segundo plano" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Lista curada de serviços conhecidos como seguros de desativar. Leia a recomendação antes de mudar." Style="{StaticResource Subtitulo}"/>
+                    <ItemsControl ItemsSource="{Binding Servicos}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding NomeExibicao}" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding RecomendacaoSeguranca}" FontSize="11" Foreground="{StaticResource CorTextoSecundario}" TextWrapping="Wrap" MaxWidth="620"/>
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="1" Style="{StaticResource Chave}" IsChecked="{Binding InicializacaoAutomatica, Mode=OneWay}"
+                                              Command="{Binding DataContext.AlternarServicoCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                              CommandParameter="{Binding}" VerticalAlignment="Top" Margin="12,0,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,88 @@
+<UserControl x:Class="OtimizaPC.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:OtimizaPC.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008/design"
+             d:DataContext="{d:DesignInstance vm:DashboardViewModel}"
+             mc:Ignorable="d">
+    <ScrollViewer Padding="32">
+        <StackPanel MaxWidth="900" HorizontalAlignment="Stretch">
+            <TextBlock Text="Painel" Style="{StaticResource Titulo}"/>
+            <TextBlock Text="Visão geral da saúde e do desempenho da sua máquina." Style="{StaticResource Subtitulo}"/>
+
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource Cartao}">
+                    <StackPanel>
+                        <TextBlock Text="Processador" Style="{StaticResource Subtitulo}" Margin="0,0,0,4"/>
+                        <TextBlock Text="{Binding UsoCpuPercentual, StringFormat={}{0}%}" FontSize="28" FontWeight="Bold"/>
+                        <ProgressBar Value="{Binding UsoCpuPercentual, Mode=OneWay}" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource Cartao}">
+                    <StackPanel>
+                        <TextBlock Text="Memória RAM" Style="{StaticResource Subtitulo}" Margin="0,0,0,4"/>
+                        <TextBlock Text="{Binding UsoMemoriaPercentual, StringFormat={}{0}%}" FontSize="28" FontWeight="Bold"/>
+                        <ProgressBar Value="{Binding UsoMemoriaPercentual, Mode=OneWay}" Margin="0,10,0,4"/>
+                        <TextBlock Text="{Binding MemoriaTexto}" Style="{StaticResource Subtitulo}" FontSize="11" Margin="0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource Cartao}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Discos" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <ItemsControl ItemsSource="{Binding Discos}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock>
+                                            <Run Text="{Binding Unidade, Mode=OneWay}"/>
+                                            <Run Text=" — "/>
+                                            <Run Text="{Binding RotuloVolume, Mode=OneWay}"/>
+                                        </TextBlock>
+                                        <ProgressBar Value="{Binding PercentualUsado, Mode=OneWay}" Width="260" HorizontalAlignment="Left" Margin="0,6,0,4"/>
+                                        <TextBlock Style="{StaticResource Subtitulo}" FontSize="11" Margin="0">
+                                            <Run Text="{Binding EspacoUsadoBytes, Mode=OneWay, Converter={StaticResource BytesToString}}"/>
+                                            <Run Text=" usados de "/>
+                                            <Run Text="{Binding EspacoTotalBytes, Mode=OneWay, Converter={StaticResource BytesToString}}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusSaude}" VerticalAlignment="Center" Margin="12,0"
+                                               Foreground="{StaticResource CorTextoSecundario}"/>
+                                    <Button Grid.Column="2" Content="Otimizar" Style="{StaticResource BotaoSecundario}" Padding="10,6" FontSize="12"
+                                            Command="{Binding DataContext.OtimizarUnidadeCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}">
+                <StackPanel>
+                    <TextBlock Text="Manutenção" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Crie um ponto de restauração do Windows antes de aplicar ajustes de desempenho — assim dá pra desfazer se algo não sair como esperado." Style="{StaticResource Subtitulo}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Criar ponto de restauração" Style="{StaticResource BotaoPrimario}" Command="{Binding CriarPontoRestauracaoCommand}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding StatusPontoRestauracao}" Style="{StaticResource Subtitulo}" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

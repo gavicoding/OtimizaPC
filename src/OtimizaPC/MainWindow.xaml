@@ -1,0 +1,248 @@
+<Window x:Class="OtimizaPC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:OtimizaPC.Views"
+        xmlns:vm="clr-namespace:OtimizaPC.ViewModels"
+        xmlns:models="clr-namespace:OtimizaPC.Models"
+        d:DataContext="{d:DesignInstance vm:MainViewModel}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008/design"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="OtimizaPC" Height="720" Width="1180" MinHeight="560" MinWidth="900"
+        Icon="Assets/otimizapc.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra lateral -->
+        <Border Grid.Column="0" Background="{StaticResource CorFundoPainel}" BorderBrush="{StaticResource CorBorda}" BorderThickness="0,0,1,0">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Margin="20,24,20,24">
+                    <TextBlock Text="⚡ OtimizaPC" FontSize="19" FontWeight="Bold"/>
+                    <TextBlock Text="Deixe seu PC no melhor desempenho" Style="{StaticResource Subtitulo}" Margin="0,4,0,0" FontSize="11"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="📊  Painel" Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.Dashboard}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="Dashboard">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.Limpeza}">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🧹  Limpeza"/>
+                                <TextBlock Grid.Column="1" DataContext="{Binding Limpeza.StatusTarefa}" Text="{Binding Indicador}"
+                                           Style="{StaticResource IndicadorAnimadoStyle}" Margin="8,0,0,0"/>
+                            </Grid>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="Limpeza">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.Duplicados}">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🗂  Duplicados"/>
+                                <TextBlock Grid.Column="1" DataContext="{Binding Duplicados.StatusTarefa}" Text="{Binding Indicador}"
+                                           Style="{StaticResource IndicadorAnimadoStyle}" Margin="8,0,0,0"/>
+                            </Grid>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="Duplicados">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.Residuos}">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🗑  Resíduos"/>
+                                <TextBlock Grid.Column="1" DataContext="{Binding Residuos.StatusTarefa}" Text="{Binding Indicador}"
+                                           Style="{StaticResource IndicadorAnimadoStyle}" Margin="8,0,0,0"/>
+                            </Grid>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="Residuos">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Content="🚀  Desempenho" Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.Desempenho}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="Desempenho">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Command="{Binding NavegarCommand}" CommandParameter="{x:Static models:TelaMenu.EspacoDisco}">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="💾  Espaço em Disco"/>
+                                <TextBlock Grid.Column="1" DataContext="{Binding EspacoDisco.StatusTarefa}" Text="{Binding Indicador}"
+                                           Style="{StaticResource IndicadorAnimadoStyle}" Margin="8,0,0,0"/>
+                            </Grid>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TelaAtual}" Value="EspacoDisco">
+                                        <Setter Property="Background" Value="#2622C55E"/>
+                                        <Setter Property="Foreground" Value="{StaticResource CorTextoPrimario}"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+
+                <Border DockPanel.Dock="Bottom" Margin="16" Padding="12" CornerRadius="6" Background="{StaticResource CorFundoCartao}"
+                        Visibility="{Binding Dashboard.NaoElevado, Converter={StaticResource BoolToVis}}">
+                    <StackPanel>
+                        <TextBlock Text="Modo padrão" FontWeight="SemiBold" FontSize="12"/>
+                        <TextBlock Text="Algumas limpezas e ajustes precisam de administrador." Style="{StaticResource Subtitulo}" FontSize="11" Margin="0,4,0,8"/>
+                        <Button Content="Reiniciar como admin" Style="{StaticResource BotaoSecundario}" Padding="8,6" FontSize="11"
+                                Command="{Binding Dashboard.ReiniciarComoAdministradorCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <Grid/>
+            </DockPanel>
+        </Border>
+
+        <!-- Conteúdo -->
+        <Grid Grid.Column="1">
+            <views:DashboardView DataContext="{Binding Dashboard}">
+                <views:DashboardView.Style>
+                    <Style TargetType="views:DashboardView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="Dashboard">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:DashboardView.Style>
+            </views:DashboardView>
+
+            <views:LimpezaView DataContext="{Binding Limpeza}">
+                <views:LimpezaView.Style>
+                    <Style TargetType="views:LimpezaView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="Limpeza">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:LimpezaView.Style>
+            </views:LimpezaView>
+
+            <views:DuplicadosView DataContext="{Binding Duplicados}">
+                <views:DuplicadosView.Style>
+                    <Style TargetType="views:DuplicadosView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="Duplicados">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:DuplicadosView.Style>
+            </views:DuplicadosView>
+
+            <views:ResiduosView DataContext="{Binding Residuos}">
+                <views:ResiduosView.Style>
+                    <Style TargetType="views:ResiduosView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="Residuos">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:ResiduosView.Style>
+            </views:ResiduosView>
+
+            <views:DesempenhoView DataContext="{Binding Desempenho}">
+                <views:DesempenhoView.Style>
+                    <Style TargetType="views:DesempenhoView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="Desempenho">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:DesempenhoView.Style>
+            </views:DesempenhoView>
+
+            <views:EspacoDiscoView DataContext="{Binding EspacoDisco}">
+                <views:EspacoDiscoView.Style>
+                    <Style TargetType="views:EspacoDiscoView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.TelaAtual, RelativeSource={RelativeSource AncestorType=Window}}" Value="EspacoDisco">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </views:EspacoDiscoView.Style>
+            </views:EspacoDiscoView>
+        </Grid>
+    </Grid>
+</Window>
