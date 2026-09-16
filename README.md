@@ -65,3 +65,13 @@ dotnet publish src/OtimizaPC -c Release -r win-x64 --self-contained true -p:Publ
 ```
 
 Algumas funcionalidades (limpar `Windows\Temp`, Prefetch, mexer em serviços, acessar pastas de outras contas de usuário) exigem executar como administrador — o programa detecta isso automaticamente e oferece reiniciar elevado quando necessário.
+
+## ⚠️ Aviso
+
+Este programa mexe em arquivos, registro e serviços do Windows. Embora ele
+sempre mostre o que vai ser alterado/apagado antes de agir, o uso é por sua
+conta e risco — faça backup do que for importante antes de usar,
+especialmente na primeira vez. O software é distribuído "no estado em que
+se encontra" (AS IS), sem garantias de nenhum tipo, e o autor não se
+responsabiliza por eventuais danos ou perdas decorrentes do uso. Veja a
+licença ([LICENSE](LICENSE)) para os termos completos.
