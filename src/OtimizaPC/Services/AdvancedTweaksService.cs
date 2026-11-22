@@ -4,7 +4,7 @@ using Microsoft.Win32;
 namespace OtimizaPC.Services;
 
 /// <summary>
-/// Ajustes de desempenho mais avançados — os mesmos que aparecem em Propriedades do
+/// Ajustes de desempenho mais avançados - os mesmos que aparecem em Propriedades do
 /// Sistema &gt; Desempenho &gt; Avançado (prioridade de processos), no Gerenciador de
 /// Dispositivos/registro (agendamento de GPU) e no powercfg (hibernação).
 /// </summary>
@@ -71,7 +71,7 @@ public class AdvancedTweaksService
                 if (processo == null) return "Não foi possível executar o powercfg.";
                 processo.WaitForExit();
                 return processo.ExitCode == 0
-                    ? (ativar ? "Hibernação ativada." : "Hibernação desativada — o hiberfil.sys foi removido.")
+                    ? (ativar ? "Hibernação ativada." : "Hibernação desativada - o hiberfil.sys foi removido.")
                     : "Requer permissão de administrador.";
             }
             catch (System.ComponentModel.Win32Exception)

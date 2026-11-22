@@ -51,7 +51,7 @@
                                     <StackPanel Grid.Column="0">
                                         <TextBlock>
                                             <Run Text="{Binding Unidade, Mode=OneWay}"/>
-                                            <Run Text=" — "/>
+                                            <Run Text=" - "/>
                                             <Run Text="{Binding RotuloVolume, Mode=OneWay}"/>
                                         </TextBlock>
                                         <ProgressBar Value="{Binding PercentualUsado, Mode=OneWay}" Width="260" HorizontalAlignment="Left" Margin="0,6,0,4"/>
@@ -76,7 +76,7 @@
             <Border Style="{StaticResource Cartao}">
                 <StackPanel>
                     <TextBlock Text="Manutenção" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <TextBlock Text="Crie um ponto de restauração do Windows antes de aplicar ajustes de desempenho — assim dá pra desfazer se algo não sair como esperado." Style="{StaticResource Subtitulo}"/>
+                    <TextBlock Text="Crie um ponto de restauração do Windows antes de aplicar ajustes de desempenho - assim dá pra desfazer se algo não sair como esperado." Style="{StaticResource Subtitulo}"/>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Criar ponto de restauração" Style="{StaticResource BotaoPrimario}" Command="{Binding CriarPontoRestauracaoCommand}"/>
                     </StackPanel>

@@ -73,7 +73,7 @@ public partial class DashboardViewModel : ObservableObject, IDisposable
     private async Task CriarPontoRestauracaoAsync()
     {
         StatusPontoRestauracao = "Criando ponto de restauração...";
-        var sucesso = await _servico.CriarPontoRestauracaoAsync("OtimizaPC — antes de ajustes de desempenho");
+        var sucesso = await _servico.CriarPontoRestauracaoAsync("OtimizaPC - antes de ajustes de desempenho");
         StatusPontoRestauracao = sucesso
             ? "Ponto de restauração criado com sucesso."
             : "Não foi possível criar (o Windows limita a 1 por dia, ou a Proteção do Sistema está desativada).";

@@ -7,7 +7,7 @@ namespace OtimizaPC.Services;
 /// <summary>
 /// Gerencia programas de inicialização. Itens de registro são desabilitados
 /// removendo o valor da chave Run e guardando uma cópia em backup (nossa
-/// própria chave) para poder reativar depois — não depende de flags internas
+/// própria chave) para poder reativar depois - não depende de flags internas
 /// não documentadas do Windows.
 /// </summary>
 public class StartupService

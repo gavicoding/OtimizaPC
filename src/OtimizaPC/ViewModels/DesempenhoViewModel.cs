@@ -48,7 +48,7 @@ public partial class DesempenhoViewModel : ObservableObject
 
     /// <summary>
     /// Consultar serviços do Windows (ServiceController) e rodar o powercfg é lento
-    /// (pode passar de 1-2s) — isso tudo roda fora da thread de UI pra não travar a
+    /// (pode passar de 1-2s) - isso tudo roda fora da thread de UI pra não travar a
     /// janela na abertura do programa nem ao clicar em "Recarregar".
     /// </summary>
     private async Task CarregarTudoAsync()
@@ -162,7 +162,7 @@ public partial class DesempenhoViewModel : ObservableObject
         {
             _avancadoServico.DefinirPriorizarProgramas(value);
             Status = value
-                ? "Priorizando o programa em uso — pode ajudar a responsividade em primeiro plano."
+                ? "Priorizando o programa em uso - pode ajudar a responsividade em primeiro plano."
                 : "Voltou a dividir o processador igualmente entre programas e serviços em segundo plano.";
         }
         catch (InvalidOperationException ex)
@@ -179,8 +179,8 @@ public partial class DesempenhoViewModel : ObservableObject
         {
             _avancadoServico.DefinirAgendamentoGpu(value);
             Status = value
-                ? "Agendamento de GPU por hardware ativado — requer reiniciar o Windows para valer, e só faz efeito se a placa de vídeo suportar."
-                : "Agendamento de GPU por hardware desativado — requer reiniciar o Windows para valer.";
+                ? "Agendamento de GPU por hardware ativado - requer reiniciar o Windows para valer, e só faz efeito se a placa de vídeo suportar."
+                : "Agendamento de GPU por hardware desativado - requer reiniciar o Windows para valer.";
         }
         catch (InvalidOperationException ex)
         {

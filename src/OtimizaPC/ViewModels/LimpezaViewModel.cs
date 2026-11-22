@@ -66,7 +66,7 @@ public partial class LimpezaViewModel : ObservableObject
             }
             StatusGeral = "Escaneamento concluído.";
             StatusTarefa.MarcarConcluido();
-            NotificationService.Instancia.Notificar("Limpeza — escaneamento concluído",
+            NotificationService.Instancia.Notificar("Limpeza - escaneamento concluído",
                 $"{FormatHelper.FormatarBytes(Categorias.Sum(c => c.TamanhoBytes))} disponíveis para limpar.");
         }
         catch (OperationCanceledException)

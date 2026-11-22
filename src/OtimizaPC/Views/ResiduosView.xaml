@@ -16,7 +16,7 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Resíduos de programas desinstalados" Style="{StaticResource Titulo}"/>
-            <TextBlock Text="Verifica Program Files, AppData (Roaming e Local) e ProgramData — inclusive pastas ocultas — em busca de pastas que sobraram de programas já desinstalados. É uma estimativa por nome de pasta: revise a lista com atenção antes de excluir qualquer item." Style="{StaticResource Subtitulo}"/>
+            <TextBlock Text="Verifica Program Files, AppData (Roaming e Local) e ProgramData - inclusive pastas ocultas - em busca de pastas que sobraram de programas já desinstalados. É uma estimativa por nome de pasta: revise a lista com atenção antes de excluir qualquer item." Style="{StaticResource Subtitulo}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">

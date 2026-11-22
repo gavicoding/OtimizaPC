@@ -21,7 +21,7 @@ A native, dark-mode **Windows desktop system optimizer and disk utility** built 
 ### 🧹 Safe Multi-Profile Junk Cleanup
 Scans and previews exact byte sizes before deletion across:
 - User & Windows temporary files, thumbnail caches, and crash/error reports
-- Browser caches (Chrome, Edge, Firefox) — **never touches passwords, history, or bookmarks**
+- Browser caches (Chrome, Edge, Firefox) - **never touches passwords, history, or bookmarks**
 - Prefetch, Windows Update cache, system logs, and legacy Windows upgrade leftovers
 - Recycle Bin across all drives
 - **Temporary files across other Windows user profiles** on the same workstation (multi-user awareness)

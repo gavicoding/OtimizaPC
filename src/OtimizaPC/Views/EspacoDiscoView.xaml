@@ -15,7 +15,7 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Espaço em disco" Style="{StaticResource Titulo}"/>
-            <TextBlock Text="Escaneie uma unidade uma vez — depois disso, navegar entre pastas é instantâneo, sem recalcular nada a cada clique." Style="{StaticResource Subtitulo}"/>
+            <TextBlock Text="Escaneie uma unidade uma vez - depois disso, navegar entre pastas é instantâneo, sem recalcular nada a cada clique." Style="{StaticResource Subtitulo}"/>
         </StackPanel>
 
         <Border Grid.Row="1" Style="{StaticResource Cartao}" Margin="0,0,0,16">
@@ -46,7 +46,7 @@
 
         <!-- ListBox (não ItemsControl) de propósito: tem virtualização embutida, então
              abrir uma pasta com milhares de itens não trava a interface desenhando tudo
-             de uma vez — só os itens visíveis na tela são renderizados. -->
+             de uma vez - só os itens visíveis na tela são renderizados. -->
         <ListBox Grid.Row="2" ItemsSource="{Binding Itens}" Style="{StaticResource ListaVirtualizadaStyle}"
                   VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
                   VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.CanContentScroll="True">

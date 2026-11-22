@@ -79,7 +79,7 @@ public static class FileSystemHelper
     /// <summary>
     /// Calcula tamanho total e a data de modificação mais recente dentro da pasta
     /// (incluindo subpastas) numa única varredura. A data mais recente é o sinal mais
-    /// confiável de que algo ainda está em uso — muito mais confiável do que tentar
+    /// confiável de que algo ainda está em uso - muito mais confiável do que tentar
     /// adivinhar pelo nome da pasta.
     /// </summary>
     public static (long TamanhoBytes, DateTime UltimaModificacaoUtc) AnalisarPasta(string caminho, CancellationToken ct = default)

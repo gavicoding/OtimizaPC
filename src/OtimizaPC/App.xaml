@@ -268,7 +268,7 @@
             </Style>
 
             <!-- ListBox usado como substituto de ItemsControl quando a lista pode ficar grande
-                 (ex.: conteúdo de uma pasta) — tem virtualização embutida, então só os itens
+                 (ex.: conteúdo de uma pasta) - tem virtualização embutida, então só os itens
                  visíveis na tela chegam a ser desenhados. Chrome de seleção removido pra ficar
                  visualmente igual a um ItemsControl comum. -->
             <Style x:Key="ListaVirtualizadaStyle" TargetType="ListBox">
