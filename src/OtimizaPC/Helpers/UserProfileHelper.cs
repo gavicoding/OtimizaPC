@@ -34,7 +34,7 @@ public static class UserProfileHelper
     /// <summary>
     /// Perfis de outras pessoas que usam esta máquina (exclui o usuário atual, a pasta
     /// Public e contas de serviço do Windows que não moram em C:\Users). Ler ou apagar
-    /// arquivos nessas pastas normalmente exige administrador — o Windows bloqueia o
+    /// arquivos nessas pastas normalmente exige administrador - o Windows bloqueia o
     /// acesso via permissão de arquivo, então sem elevação essas pastas simplesmente
     /// aparecem vazias na varredura.
     /// </summary>

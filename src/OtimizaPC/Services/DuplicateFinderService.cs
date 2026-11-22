@@ -21,7 +21,7 @@ public class DuplicateFinderService
     {
         return await Task.Run(() =>
         {
-            // Reporta o progresso no máximo a cada ~150ms — sem isso, uma varredura de
+            // Reporta o progresso no máximo a cada ~150ms - sem isso, uma varredura de
             // "Todo o PC" com centenas de milhares de arquivos inunda a thread de UI de
             // atualizações e a interface parece travada até a varredura terminar.
             var progressoLimitado = new ProgressoComLimite(progresso);

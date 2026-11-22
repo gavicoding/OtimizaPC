@@ -7,14 +7,14 @@ namespace OtimizaPC.Services;
 /// <summary>
 /// Faz uma única varredura recursiva de uma unidade inteira, calculando o tamanho de
 /// cada pasta em todos os níveis de uma vez. O resultado fica em memória (uma lista de
-/// filhos por pasta), então depois de escanear, navegar entre pastas é instantâneo —
+/// filhos por pasta), então depois de escanear, navegar entre pastas é instantâneo -
 /// não precisa recalcular nada a cada clique.
 /// </summary>
 public class DiskSpaceScanService
 {
     /// <summary>
     /// Pastas com dezenas de milhares de arquivos soltos (node_modules, cache de
-    /// pacotes, etc.) faziam a árvore em memória crescer sem limite — em discos de
+    /// pacotes, etc.) faziam a árvore em memória crescer sem limite - em discos de
     /// máquina de desenvolvedor isso passava de 2GB de RAM e deixava o programa
     /// travado por minutos. Cada pasta guarda no máximo esta quantidade de itens
     /// individuais; o resto vira um único item agregado (o tamanho total continua
@@ -28,7 +28,7 @@ public class DiskSpaceScanService
         return await Task.Run(() =>
         {
             var progressoLimitado = new ProgressoComLimite(progresso);
-            progressoLimitado.Report("Analisando a unidade inteira — pode levar alguns minutos na primeira vez...");
+            progressoLimitado.Report("Analisando a unidade inteira - pode levar alguns minutos na primeira vez...");
             var arvore = new Dictionary<string, List<DiskSpaceEntry>>(StringComparer.OrdinalIgnoreCase);
             int pastasProcessadas = 0;
             EscanearRecursivo(raiz, arvore, ct, progressoLimitado, ref pastasProcessadas);

@@ -21,7 +21,7 @@ public class ResidueService
         "nethood", "printhood", "recent", "sendto", "templates", "usoprivate", "usoshared",
         "package cache", "regid.1991-06.com.microsoft.com", "programs", "publishers",
         "application data", "local", "locallow", "roaming", "history", "caches",
-        // Mecanismos do próprio Windows — nunca são "resíduo de programa", mesmo que não
+        // Mecanismos do próprio Windows - nunca são "resíduo de programa", mesmo que não
         // batam com nada no registro de desinstalação.
         "virtualstore", "squirreltemp"
     };
@@ -47,7 +47,7 @@ public class ResidueService
             AdicionarSeExistir(pastasParaChecar, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
             AdicionarSeExistir(pastasParaChecar, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs"));
             // Muitos instaladores (Electron, apps portáteis, etc.) deixam a pasta do programa
-            // direto aqui, sem passar por "\Programs" — é onde mais aparecem resíduos ocultos.
+            // direto aqui, sem passar por "\Programs" - é onde mais aparecem resíduos ocultos.
             AdicionarSeExistir(pastasParaChecar, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
             AdicionarSeExistir(pastasParaChecar, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             AdicionarSeExistir(pastasParaChecar, Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
@@ -86,7 +86,7 @@ public class ResidueService
 
                     var tempoParado = DateTime.UtcNow - ultimaModificacao;
                     if (tempoParado < TempoMinimoSemUso)
-                        continue; // algo ainda escreve aqui — não é resíduo abandonado
+                        continue; // algo ainda escreve aqui - não é resíduo abandonado
 
                     var oculta = EhOculta(pasta);
                     var diasParado = (int)tempoParado.TotalDays;
@@ -116,7 +116,7 @@ public class ResidueService
     private static bool TemCorrespondencia(string nomePasta, HashSet<string> nomesInstalados)
     {
         var normalizado = Normalizar(nomePasta);
-        if (normalizado.Length < TamanhoMinimoParaComparar) return true; // nome curto demais p/ comparar com segurança — não afirma ser resíduo
+        if (normalizado.Length < TamanhoMinimoParaComparar) return true; // nome curto demais p/ comparar com segurança - não afirma ser resíduo
 
         return nomesInstalados.Any(nomeInstalado =>
             nomeInstalado.Length >= TamanhoMinimoParaComparar &&

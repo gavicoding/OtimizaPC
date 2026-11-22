@@ -6,7 +6,7 @@ namespace OtimizaPC.Services;
 
 /// <summary>
 /// Expõe apenas uma lista curada de serviços conhecidos como seguros de desativar
-/// para a maioria dos usuários domésticos — nunca a lista completa de serviços do
+/// para a maioria dos usuários domésticos - nunca a lista completa de serviços do
 /// Windows, para evitar que alguém desative algo crítico sem saber.
 /// </summary>
 public class ServiceManagementService
@@ -51,7 +51,7 @@ public class ServiceManagementService
             }
             catch (InvalidOperationException)
             {
-                // Serviço não existe nesta edição do Windows — ignora.
+                // Serviço não existe nesta edição do Windows - ignora.
             }
         }
 

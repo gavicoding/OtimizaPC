@@ -59,7 +59,7 @@ public partial class EspacoDiscoViewModel : ObservableObject
             _raizEscaneada = unidade;
             ArvoreCarregada = true;
             AbrirPasta(unidade);
-            Status = $"Unidade {unidade} analisada — navegação instantânea a partir daqui.";
+            Status = $"Unidade {unidade} analisada - navegação instantânea a partir daqui.";
             StatusTarefa.MarcarConcluido();
             NotificationService.Instancia.Notificar("Análise de espaço em disco concluída", Status);
         }

@@ -82,7 +82,7 @@ public class CleanupService
 
                 if (categoria.Definicao.RequerAdministrador && !ElevationHelper.EstaElevado())
                 {
-                    resultado.Avisos.Add($"'{categoria.Nome}' foi pulada — requer administrador.");
+                    resultado.Avisos.Add($"'{categoria.Nome}' foi pulada - requer administrador.");
                     continue;
                 }
 
@@ -131,7 +131,7 @@ public class CleanupService
         }
         else if (tamanhoAntes == 0)
         {
-            // Lixeira já estava vazia — o HRESULT de "nada a fazer" não é um erro real.
+            // Lixeira já estava vazia - o HRESULT de "nada a fazer" não é um erro real.
         }
         else
         {

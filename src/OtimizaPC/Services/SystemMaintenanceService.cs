@@ -64,7 +64,7 @@ public class SystemMaintenanceService
             if (saudePorModelo.Count > 0)
             {
                 disco.SaudeOk = !saudePorModelo.Values.Any(falha => falha);
-                disco.StatusSaude = disco.SaudeOk ? "OK" : "Atenção — possível falha prevista";
+                disco.StatusSaude = disco.SaudeOk ? "OK" : "Atenção - possível falha prevista";
             }
 
             discos.Add(disco);

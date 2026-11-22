@@ -21,7 +21,7 @@ public static class CleanupDefinitions
             {
                 Id = "temp_usuario",
                 Nome = "Arquivos temporários do usuário",
-                Descricao = "Arquivos deixados por programas em %TEMP% — geralmente seguros de apagar.",
+                Descricao = "Arquivos deixados por programas em %TEMP% - geralmente seguros de apagar.",
                 Tipo = CleanupTargetKind.Folder,
                 Caminhos = new() { temp },
                 SelecionadoPorPadrao = true,
@@ -158,7 +158,7 @@ public static class CleanupDefinitions
             {
                 Id = "temp_outros_usuarios",
                 Nome = $"Arquivos temporários de outros usuários ({outrosPerfis.Count})",
-                Descricao = "Temp e cache de navegador das outras contas desta máquina. Requer administrador — sem elevação, o Windows bloqueia o acesso e esta categoria aparece vazia.",
+                Descricao = "Temp e cache de navegador das outras contas desta máquina. Requer administrador - sem elevação, o Windows bloqueia o acesso e esta categoria aparece vazia.",
                 Tipo = CleanupTargetKind.Folder,
                 Caminhos = caminhosOutrosUsuarios,
                 SelecionadoPorPadrao = false,
