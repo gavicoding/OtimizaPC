@@ -1,77 +1,78 @@
+**🇺🇸 English** | [🇧🇷 Português](README.pt-BR.md)
+
 # ⚡ OtimizaPC
 
-Um programa desktop pra Windows 100% focado em **deixar o PC no melhor desempenho**: limpa o que é lixo de verdade, mostra o que está ocupando espaço, ajusta configurações de performance e remove resíduos de programas desinstalados — tudo isso sem nunca apagar nada sem você confirmar antes.
+[![Windows Build](https://github.com/gavicoding/OtimizaPC/actions/workflows/build.yml/badge.svg)](https://github.com/gavicoding/OtimizaPC/actions/workflows/build.yml)
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4.svg)](https://dotnet.microsoft.com/)
+[![WPF](https://img.shields.io/badge/UI-WPF%20(MVVM)-0078D4.svg)](https://learn.microsoft.com/dotnet/desktop/wpf/)
+[![C#](https://img.shields.io/badge/Language-C%23-239120.svg)](https://learn.microsoft.com/dotnet/csharp/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](LICENSE)
 
-Construído com **.NET 8 + WPF**, interface em tema escuro, roda nativo no Windows (sem instalar nada extra — existe uma versão publicada como executável único).
-
----
-
-## O que ele faz
-
-### 📊 Painel
-Visão geral da saúde da máquina em tempo real: uso de CPU, memória RAM, espaço em cada unidade de disco e status de saúde (S.M.A.R.T.) quando rodando como administrador. Tem um botão pra criar um **ponto de restauração do Windows** antes de aplicar qualquer ajuste — se algo não sair como esperado, dá pra desfazer.
-
-### 🧹 Limpeza
-Escaneia e mostra o tamanho de cada categoria antes de apagar qualquer coisa:
-- Temporários do usuário e do Windows, cache de miniaturas, relatórios de erro
-- Cache de navegação do Chrome, Edge e Firefox (sem tocar em senhas, histórico ou favoritos)
-- Prefetch, cache do Windows Update, logs do sistema, restos de upgrades antigos do Windows
-- Lixeira de todas as unidades
-- **Arquivos temporários de outras contas de usuário** da mesma máquina (detecta automaticamente outros perfis do Windows)
-
-Nada é excluído sem você revisar a lista e confirmar — o app mostra exatamente o quê e quanto vai ser apagado antes de agir.
-
-### 🔍 Arquivos duplicados
-Encontra arquivos idênticos por conteúdo (comparação por hash, não só por nome), numa pasta específica ou na máquina inteira. Sugere manter o arquivo mais antigo e marca os demais — você revisa e decide o que excluir.
-
-### 🗑️ Resíduos de programas desinstalados
-Cruza as pastas de instalação (Program Files, AppData, ProgramData — inclusive de outras contas de usuário) com a lista de programas realmente instalados no Windows, e sinaliza pastas órfãs. Só marca como resíduo o que não é tocado há pelo menos 90 dias, pra não confundir uma ferramenta em uso ativo (cache de npm, IDEs, etc.) com lixo de verdade.
-
-### 🚀 Desempenho
-- Plano de energia (Equilibrado / Alto desempenho / Economia)
-- Efeitos visuais: melhor aparência ↔ melhor desempenho
-- Programas na inicialização — habilitar/desabilitar com um clique
-- Serviços em segundo plano — lista curada e segura, com explicação de cada um
-- Ajustes avançados: priorizar o programa em uso, agendamento de GPU por hardware, hibernação
-
-### 💾 Espaço em disco
-Escaneia uma unidade inteira de uma vez (com barra de progresso e opção de cancelar) e depois disso navegar entre pastas é **instantâneo** — sem recalcular nada a cada clique, ao estilo WinDirStat. Mostra os maiores consumidores de espaço e permite excluir direto.
+A native, dark-mode **Windows desktop system optimizer and disk utility** built with **.NET 8 & WPF (MVVM)**. Designed around strict safety guardrails: nothing is ever deleted without explicit user review, every background scan runs asynchronously off the UI thread, and System Restore Points can be created in one click before applying system tweaks.
 
 ---
 
-## Como foi pensado
+## Core Modules
 
-- **Nunca apaga nada sem confirmação explícita** — toda exclusão mostra antes o que e quanto vai ser removido.
-- **Detecta automaticamente quando precisa de administrador** e avisa, com um botão pra reiniciar elevado quando necessário (Windows\Temp, Prefetch, serviços, outras contas de usuário, etc.).
-- **Notificação nativa do Windows** quando uma tarefa demorada termina em segundo plano, e indicador animado no menu mostrando qual aba ainda está trabalhando.
-- Todas as varreduras rodam fora da thread de interface — a janela não trava enquanto processa.
+### 📊 Real-Time Health Dashboard & Restore Points
+- Live CPU load, RAM usage, drive capacity overview, and **S.M.A.R.T. disk health status** (when running elevated).
+- One-click **Windows System Restore Point** creation before making any system-level modifications.
 
-## Tecnologia
+### 🧹 Safe Multi-Profile Junk Cleanup
+Scans and previews exact byte sizes before deletion across:
+- User & Windows temporary files, thumbnail caches, and crash/error reports
+- Browser caches (Chrome, Edge, Firefox) — **never touches passwords, history, or bookmarks**
+- Prefetch, Windows Update cache, system logs, and legacy Windows upgrade leftovers
+- Recycle Bin across all drives
+- **Temporary files across other Windows user profiles** on the same workstation (multi-user awareness)
 
-- .NET 8 / WPF (C#), padrão MVVM com [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
-- Sem dependências externas de infraestrutura — usa só APIs nativas do Windows (registro, WMI, powercfg, Service Control Manager)
+### 🔍 Content-Hash Duplicate Finder
+Finds byte-identical files via cryptographic content hashing (not just filenames) in a target directory or across the entire machine, keeping the oldest file selected by default and letting you review before deleting.
 
-## Como rodar
+### 🗑️ 90-Day Orphan Software Residue Scanner
+Cross-references installation directories (`Program Files`, `AppData`, `ProgramData`, including other local user profiles) against Windows' installed applications registry. Applies a **90-day inactivity safety threshold** so active developer toolchains (`npm` caches, IDEs, SDKs) are never flagged as leftovers.
 
-```
-dotnet build
+### 🚀 Performance Tuning
+- Power plan switcher (Balanced / High Performance / Power Saver)
+- Visual effects toggle (Best Appearance vs. Best Performance)
+- Startup programs manager (enable/disable in one click)
+- Curated background services panel with plain-language safety descriptions
+- Advanced tweaks: foreground application priority, hardware-accelerated GPU scheduling, hibernation toggle
+
+### 💾 Instant Disk Space Analyzer
+Scans an entire drive once in the background (with live progress and cancellation), caching the tree so drilling into subfolders is **instantaneous** (WinDirStat-style) for locating and cleaning large space consumers.
+
+---
+
+## Architecture & Design Principles
+
+- **Zero External Infrastructure**: Built purely on native Windows APIs (Registry, WMI, `powercfg`, Service Control Manager).
+- **Clean MVVM Separation**: `Views` (XAML) ↔ `ViewModels` ([CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)) ↔ `Services` (`CleanupService`, `DuplicateFinderService`, `DiskSpaceScanService`, `ResidueService`, etc.).
+- **Smart UAC Elevation**: Automatically detects operations requiring administrator privileges (`Windows\Temp`, Prefetch, services, cross-profile cleanup) and offers one-click elevated restart.
+- **Responsive UX**: All heavy I/O runs asynchronously with native Windows toast notifications on completion and animated sidebar indicators for active background tasks.
+
+---
+
+## Build & Publish
+
+### Prerequisites
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) on Windows
+
+### Run from Source
+
+```bash
+dotnet build OtimizaPC.sln
 dotnet run --project src/OtimizaPC
 ```
 
-Ou publique um executável único e independente:
+### Publish Self-Contained Single-File Executable
 
-```
+```bash
 dotnet publish src/OtimizaPC -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
-Algumas funcionalidades (limpar `Windows\Temp`, Prefetch, mexer em serviços, acessar pastas de outras contas de usuário) exigem executar como administrador — o programa detecta isso automaticamente e oferece reiniciar elevado quando necessário.
+---
 
-## ⚠️ Aviso
+## Disclaimer
 
-Este programa mexe em arquivos, registro e serviços do Windows. Embora ele
-sempre mostre o que vai ser alterado/apagado antes de agir, o uso é por sua
-conta e risco — faça backup do que for importante antes de usar,
-especialmente na primeira vez. O software é distribuído "no estado em que
-se encontra" (AS IS), sem garantias de nenhum tipo, e o autor não se
-responsabiliza por eventuais danos ou perdas decorrentes do uso. Veja a
-licença ([LICENSE](LICENSE)) para os termos completos.
+This utility modifies system files, Windows Registry settings, and Windows services. Although it always presents a detailed preview before deleting or changing anything, use it at your own risk and maintain backups of critical data. Distributed "AS IS", without warranty of any kind. See [LICENSE](LICENSE) for full terms.
