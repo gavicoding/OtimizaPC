@@ -12,6 +12,20 @@ A native, dark-mode **Windows desktop system optimizer and disk utility** built 
 
 ---
 
+## In plain words
+
+Most "PC optimizers" delete things without saying what, change hidden settings and sometimes break Windows.
+
+OtimizaPC works the other way around: **nothing is deleted before you see it**, and you can create a restore point with one click before any change.
+
+**What you gain**
+
+- **Disk space back without fear:** every cleanup shows the list and exact size of what will go.
+- **An easy way back:** Windows restore point in one click.
+- **More than cleanup:** real duplicates by content, leftovers from uninstalled programs and a map of what takes up space.
+
+---
+
 ## Core Modules
 
 ### 📊 Real-Time Health Dashboard & Restore Points
